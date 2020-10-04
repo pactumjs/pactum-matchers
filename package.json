@@ -1,0 +1,33 @@
+{
+  "name": "pact-matchers",
+  "version": "1.0.0",
+  "description": "collection of json matchers for contract testing",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [ "/src" ],
+  "scripts": {
+    "test": "uvu tests",
+    "coverage": "c8 --include=src npm test && c8 report --reporter=text-lcov > coverage/lcov.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASaiAnudeep/pact-matchers.git"
+  },
+  "keywords": [
+    "pact",
+    "pactum",
+    "matchers",
+    "json",
+    "compare"
+  ],
+  "author": "Anudeep <asa.anudeep4@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ASaiAnudeep/pact-matchers/issues"
+  },
+  "homepage": "https://github.com/ASaiAnudeep/pact-matchers#readme",
+  "devDependencies": {
+    "c8": "^7.3.1",
+    "uvu": "^0.3.4"
+  }
+}
