@@ -4,9 +4,11 @@
   "description": "collection of json matchers for contract testing",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
-  "files": [ "/src" ],
+  "files": [
+    "/src"
+  ],
   "scripts": {
-    "test": "uvu tests",
+    "test": "uvu test",
     "coverage": "c8 --include=src npm test && c8 report --reporter=text-lcov > coverage/lcov.info"
   },
   "repository": {

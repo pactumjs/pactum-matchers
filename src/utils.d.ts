@@ -1,0 +1,1 @@
+export function setMatchingRules(rules: object, data: any, path: string): object;

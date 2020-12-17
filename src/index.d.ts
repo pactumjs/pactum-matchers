@@ -1,31 +1,35 @@
+export * as utils from './utils';
+
 interface EachLikeOptions {
   min?: number;
-}
-
-interface RegexOptions {
-  generate: string;
-  matcher: string;
+  value?: any;
 }
 
 /**
  * type matching
  */
 export function like(value: any): object;
-export function somethingLike(value: any): object;
 
 /**
  * array type matching 
  */
 export function eachLike(content: any, options?: EachLikeOptions): object;
 
-export function term(value: any): object;
+/**
+ * oneOf matching
+ */
+export function oneOf(value: any): object;
+
+/**
+ * expression matching
+ */
+export function expression(value: any, expr: string): object;
 
 /**
  * regex matching
  */
-export function regex(value: string): object;
-export function regex(value: RegExp): object;
-export function regex(options: RegexOptions): object;
+export function regex(value: any, matcher: RegExp): object;
+export function regex(value: any, matcher: string): object;
 
 /**
  * partial regex matching
