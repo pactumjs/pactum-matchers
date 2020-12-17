@@ -1,10 +1,4 @@
-function isPureObject(value) {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
-}
-
-function isObject(value) {
-  return value !== null && typeof value === 'object';
-}
+const { isPureObject, isObject } = require('./helpers');
 
 function setMatchingRules(rules, data, path) {
   switch (data.pactum_type) {
