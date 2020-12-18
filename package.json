@@ -1,5 +1,5 @@
 {
-  "name": "pact-matchers",
+  "name": "pactum-matchers",
   "version": "1.0.0",
   "description": "collection of json matchers for contract testing",
   "main": "./src/index.js",
@@ -13,10 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ASaiAnudeep/pact-matchers.git"
+    "url": "git+https://github.com/ASaiAnudeep/pactum-matchers.git"
   },
   "keywords": [
-    "pact",
     "pactum",
     "matchers",
     "json",
@@ -25,9 +24,9 @@
   "author": "Anudeep <asa.anudeep4@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ASaiAnudeep/pact-matchers/issues"
+    "url": "https://github.com/ASaiAnudeep/pactum-matchers/issues"
   },
-  "homepage": "https://github.com/ASaiAnudeep/pact-matchers#readme",
+  "homepage": "https://github.com/ASaiAnudeep/pactum-matchers#readme",
   "devDependencies": {
     "c8": "^7.3.1",
     "uvu": "^0.5.1"
