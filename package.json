@@ -30,6 +30,6 @@
   "homepage": "https://github.com/ASaiAnudeep/pact-matchers#readme",
   "devDependencies": {
     "c8": "^7.3.1",
-    "uvu": "^0.3.4"
+    "uvu": "^0.5.1"
   }
 }
