@@ -39,6 +39,9 @@ function compareWithRule(actual, expected, rules, path, rule) {
     case 'expr':
       compareWithRuleExpr(actual, rule, path);
       break;
+    case 'string':
+      compareWithString(actual, rule, path);
+      break;
   }
 }
 
@@ -80,6 +83,16 @@ function compareWithRuleExpr(actual, rule, path) {
   const expression = expr.replace('$V', 'actual');
   if (eval(expression) !== true) {
     throw `Json doesn't fulfil expression '${expression.replace('actual', path).trim()}'`;
+  }
+}
+
+function compareWithString(actual, rule, path) {
+  const type = getType(actual);
+  if (type !== 'string') {
+    throw `Json doesn't have type 'string' at '${path}' but found '${type}'`;
+  }
+  if (actual.length === 0) {
+    throw `Json have an empty string at '${path}'`;
   }
 }
 

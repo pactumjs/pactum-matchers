@@ -47,6 +47,13 @@ function expression(value, expr) {
   };
 }
 
+function string(value) {
+  return {
+    value: typeof value === 'undefined' ? 'string' : value,
+    pactum_type: 'STRING'
+  };
+}
+
 function regex(value, matcher) {
   if (matcher instanceof RegExp) {
     matcher = matcher.source;
@@ -54,7 +61,7 @@ function regex(value, matcher) {
   try {
     new RegExp(matcher);
   } catch (error) {
-    throw 'Invalid RegEx Matcher';
+    throw `Invalid RegEx Matcher - ${matcher}`;
   }
   return {
     value,
@@ -64,38 +71,23 @@ function regex(value, matcher) {
 }
 
 function includes(value) {
-  return regex({
-    value,
-    matcher: value
-  });
+  return regex(value, value);
 }
 
 function email(value) {
-  return regex({
-    value: value || 'hello@pactum.js',
-    matcher: EMAIL_PATTERN
-  });
+  return regex(value || 'hello@pactum.js', EMAIL_PATTERN);
 }
 
 function uuid(value) {
-  return regex({
-    value: value || 'ce118b6e-d8e1-11e7-9296-cec278b6b50a',
-    matcher: UUID_PATTERN
-  });
+  return regex(value || 'ce118b6e-d8e1-11e7-9296-cec278b6b50a', UUID_PATTERN);
 }
 
 function date(value) {
-  return regex({
-    value: value || '2020-12-12',
-    matcher: ISO8601_DATE_PATTERN
-  });
+  return regex(value || '2020-12-12', ISO8601_DATE_PATTERN);
 }
 
 function dateTime(value) {
-  return regex({
-    value: value || '2020-12-12T16:53:10+01:00',
-    matcher: ISO8601_DATE_TIME_PATTERN
-  });
+  return regex(value || '2020-12-12T16:53:10+01:00', ISO8601_DATE_TIME_PATTERN);
 }
 
 function dateTimeMs(value) {
@@ -117,6 +109,7 @@ module.exports = {
   eachLike,
   oneOf,
   expression,
+  string,
   regex,
   includes,
   email,

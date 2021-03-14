@@ -26,6 +26,11 @@ export function oneOf(value: any): object;
 export function expression(value: any, expr: string): object;
 
 /**
+ * non empty string matching
+ */
+ export function string(value?: string): object;
+
+/**
  * regex matching
  */
 export function regex(value: any, matcher: RegExp): object;
@@ -34,4 +39,24 @@ export function regex(value: any, matcher: string): object;
 /**
  * partial regex matching
  */
-export function contains(value: string | number): object;
+export function includes(value: string | number): object;
+
+/**
+ * email matching
+ */
+export function email(value?: string): object;
+
+/**
+ * uuid matching
+ */
+export function uuid(value?: string): object;
+
+/**
+ * ISO 8601 date matching
+ */
+export function date(value?: string): object;
+
+/**
+ * ISO 8601 date-time matching
+ */
+export function dateTime(value?: string): object;

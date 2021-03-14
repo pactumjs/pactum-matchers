@@ -5,6 +5,7 @@ function getValueFromMatcher(data) {
     case 'LIKE':
     case 'EXPR':
     case 'REGEX':
+    case 'STRING':
       return data.value;
     case 'ONE_OF':
       return data.value[0];

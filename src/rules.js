@@ -14,6 +14,9 @@ function setMatchingRules(rules, data, path) {
     case 'EXPR':
       rules[path] = { match: 'expr', expr: data.expr };
       break;
+    case 'STRING':
+      rules[path] = { match: 'string' };
+      break;
     case 'REGEX':
       rules[path] = { match: 'regex', regex: data.matcher };
       break;
