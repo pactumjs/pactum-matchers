@@ -14,9 +14,6 @@ function setMatchingRules(rules, data, path) {
     case 'EXPR':
       rules[path] = { match: 'expr', expr: data.expr };
       break;
-    case 'STRING':
-      rules[path] = { match: 'string' };
-      break;
     case 'REGEX':
       rules[path] = { match: 'regex', regex: data.matcher };
       break;
@@ -26,6 +23,9 @@ function setMatchingRules(rules, data, path) {
       if (isObject(data.value)) {
         rules[`${path}[*].*`] = { match: 'type' };
       }
+      break;
+    default:
+      rules[path] = { match: data.pactum_type.toLowerCase() };
       break;
   }
 }
@@ -52,7 +52,7 @@ function setRules(rules, data, path) {
       }
     }
   }
-   return rules;
+  return rules;
 }
 
 module.exports = {

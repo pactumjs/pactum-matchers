@@ -9,15 +9,13 @@ test('email - default value - root string - comparison passes', () => {
   const actual = 'hello@pactum.js';
   const value = email();
   assert.deepStrictEqual(value, {
-    matcher: '\\S+@\\S+\\.\\S+',
-    pactum_type: 'REGEX',
+    pactum_type: 'EMAIL',
     value: 'hello@pactum.js'
   });
   const rules = setMatchingRules({}, value, '$.body');
   assert.deepStrictEqual(rules, {
     '$.body': {
-      match: 'regex',
-      regex: '\\S+@\\S+\\.\\S+'
+      match: 'email'
     }
   });
   const expected = getValue(value);
@@ -30,21 +28,19 @@ test('email - custom value - root string - comparison fails', () => {
   const actual = 'hello@pactum';
   const value = email('some@gmail.com');
   assert.deepStrictEqual(value, {
-    matcher: '\\S+@\\S+\\.\\S+',
-    pactum_type: 'REGEX',
+    pactum_type: 'EMAIL',
     value: 'some@gmail.com'
   });
   const rules = setMatchingRules({}, value, '$.body');
   assert.deepStrictEqual(rules, {
     '$.body': {
-      match: 'regex',
-      regex: '\\S+@\\S+\\.\\S+'
+      match: 'email'
     }
   });
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't match with "\\S+@\\S+\\.\\S+" at "$.body" but found "hello@pactum"`);
+  assert.strictEqual(message, `Json doesn't match with "EMAIL" pattern at "$.body" but found "hello@pactum"`);
 });
 
 test('email - prop in object - comparison passes', () => {
@@ -60,8 +56,7 @@ test('email - prop in object - comparison passes', () => {
   const expected = getValue(value);
   assert.deepStrictEqual(rules, {
     '$.body.name': {
-      match: 'regex',
-      regex: '\\S+@\\S+\\.\\S+'
+      match: 'email'
     }
   });
   const { equal, message } = compare(actual, expected, rules, '$.body');
@@ -82,13 +77,12 @@ test('includes - prop in object - comparison fails', () => {
   const expected = getValue(value);
   assert.deepStrictEqual(rules, {
     '$.body.name': {
-      match: 'regex',
-      regex: '\\S+@\\S+\\.\\S+'
+      match: 'email'
     }
   });
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't match with "\\S+@\\S+\\.\\S+" at "$.body.name" but found "danny@summer"`);
+  assert.strictEqual(message, `Json doesn't match with "EMAIL" pattern at "$.body.name" but found "danny@summer"`);
 });
 
 test.run();

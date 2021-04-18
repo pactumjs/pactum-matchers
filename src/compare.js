@@ -1,4 +1,5 @@
 const { isPrimitive, getType } = require('./helpers');
+const patterns = require('./patterns');
 
 function compare(actual, expected, rules, path) {
   const rule = getCurrentPathRule(rules, path);
@@ -41,6 +42,12 @@ function compareWithRule(actual, expected, rules, path, rule) {
       break;
     case 'string':
       compareWithString(actual, rule, path);
+      break;
+    case 'uuid':
+      compareWithUUID(actual, rule, path);
+      break;
+    case 'email':
+      compareWithEmail(actual, rule, path);
       break;
   }
 }
@@ -93,6 +100,20 @@ function compareWithString(actual, rule, path) {
   }
   if (actual.length === 0) {
     throw `Json have an empty string at '${path}'`;
+  }
+}
+
+function compareWithUUID(actual, rule, path) {
+  const pattern = patterns.UUID;
+  if (!pattern.test(actual)) {
+    throw `Json doesn't match with "UUID" pattern at "${path}" but found "${actual}"`;
+  }
+}
+
+function compareWithEmail(actual, rule, path) {
+  const pattern = patterns.EMAIL;
+  if (!pattern.test(actual)) {
+    throw `Json doesn't match with "EMAIL" pattern at "${path}" but found "${actual}"`;
   }
 }
 

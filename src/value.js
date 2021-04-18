@@ -2,11 +2,6 @@ const { isObject } = require('./helpers');
 
 function getValueFromMatcher(data) {
   switch (data.pactum_type) {
-    case 'LIKE':
-    case 'EXPR':
-    case 'REGEX':
-    case 'STRING':
-      return data.value;
     case 'ONE_OF':
       return data.value[0];
     case 'ARRAY_LIKE':
@@ -15,6 +10,8 @@ function getValueFromMatcher(data) {
           data.value[i] = getValue(data.value[i]);
         }
       }
+      return data.value;
+    default:
       return data.value;
   }
 }

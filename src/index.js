@@ -1,7 +1,5 @@
 const utils = require('./utils');
 
-const EMAIL_PATTERN = /\S+@\S+\.\S+/;
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const ISO8601_DATE_PATTERN = "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))?)$";
 const ISO8601_DATE_TIME_PATTERN = "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z)$";
 const ISO8601_DATE_TIME_MS_PATTERN = "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d(:?[0-5]\\d)?|Z)$";
@@ -75,11 +73,17 @@ function includes(value) {
 }
 
 function email(value) {
-  return regex(value || 'hello@pactum.js', EMAIL_PATTERN);
+  return {
+    value: value || 'hello@pactum.js',
+    pactum_type: 'EMAIL'
+  };
 }
 
 function uuid(value) {
-  return regex(value || 'ce118b6e-d8e1-11e7-9296-cec278b6b50a', UUID_PATTERN);
+  return {
+    value: value || 'ce118b6e-d8e1-11e7-9296-cec278b6b50a',
+    pactum_type: 'UUID'
+  };
 }
 
 function date(value) {
