@@ -49,6 +49,9 @@ function compareWithRule(actual, expected, rules, path, rule) {
     case 'email':
       compareWithEmail(actual, rule, path);
       break;
+    case 'float':
+        compareWithFloat(actual, rule, path);
+        break;
   }
 }
 
@@ -107,6 +110,13 @@ function compareWithUUID(actual, rule, path) {
   const pattern = patterns.UUID;
   if (!pattern.test(actual)) {
     throw `Json doesn't match with "UUID" pattern at "${path}" but found "${actual}"`;
+  }
+}
+
+function compareWithFloat(actual, rule, path) {
+  const pattern = patterns.FLOAT;
+  if (!pattern.test(actual)) {
+    throw `Json doesn't match with "FLOAT" pattern at "${path}" but found "${actual}"`;
   }
 }
 

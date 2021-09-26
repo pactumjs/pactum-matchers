@@ -6,19 +6,17 @@ const { setMatchingRules, getValue, compare } = utils;
 const test = suite('SetMatchingRules - Regex');
 const FLOAT_MATCHER = "^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$";
 
-test('float - default value - root float number - comparison passes', () => {
-  const actual = 564.321;
+test('float - default value - root float - comparison passes', () => {
+  const actual = 456.123;
   const value = float();
   assert.deepStrictEqual(value, {
-    matcher: FLOAT_MATCHER,
-    pactum_type: 'REGEX',
+    pactum_type: 'FLOAT',
     value: 123.456
   });
   const rules = setMatchingRules({}, value, '$.body');
   assert.deepStrictEqual(rules, {
     '$.body': {
-      match: 'regex',
-      regex: FLOAT_MATCHER
+      match: 'float'
     }
   });
   const expected = getValue(value);
@@ -27,20 +25,17 @@ test('float - default value - root float number - comparison passes', () => {
   assert.strictEqual(message, '');
 });
 
-
-test('float - custom value - root integer number - comparison passes', () => {
-  const actual = 123;
-  const value = float();
+test('float - custom value - root integer - comparison passes', () => {
+  const actual = 4567;
+  const value = float(1234);
   assert.deepStrictEqual(value, {
-    matcher: FLOAT_MATCHER,
-    pactum_type: 'REGEX',
-    value: 123.456
+    pactum_type: 'FLOAT',
+    value: 1234
   });
   const rules = setMatchingRules({}, value, '$.body');
   assert.deepStrictEqual(rules, {
     '$.body': {
-      match: 'regex',
-      regex: FLOAT_MATCHER
+      match: 'float'
     }
   });
   const expected = getValue(value);
@@ -50,18 +45,16 @@ test('float - custom value - root integer number - comparison passes', () => {
 });
 
 test('float - custom value - root number as a string - comparison passes', () => {
-  const actual = "123.45" ;
-  const value = float();
+  const actual = "123.456" ;
+  const value = float(456.12);
   assert.deepStrictEqual(value, {
-    matcher: FLOAT_MATCHER,
-    pactum_type: 'REGEX',
-    value: 123.456
+    pactum_type: 'FLOAT',
+    value: 456.12
   });
   const rules = setMatchingRules({}, value, '$.body');
   assert.deepStrictEqual(rules, {
     '$.body': {
-      match: 'regex',
-      regex: FLOAT_MATCHER
+      match: 'float',
     }
   });
   const expected = getValue(value);
@@ -71,25 +64,23 @@ test('float - custom value - root number as a string - comparison passes', () =>
 });
 
 
-test('float - custom value - root string value - comparison fails', () => {
+test('float - custom value - root string - comparison fails', () => {
   const actual = "String";
-  const value = float();
+  const value = float(456.12);
   assert.deepStrictEqual(value, {
-    matcher: FLOAT_MATCHER,
-    pactum_type: 'REGEX',
-    value: 123.456
+    pactum_type: 'FLOAT',
+    value: 456.12
   });
   const rules = setMatchingRules({}, value, '$.body');
   assert.deepStrictEqual(rules, {
     '$.body': {
-      match: 'regex',
-      regex: FLOAT_MATCHER
+      match: 'float'
     }
   });
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't match with "${FLOAT_MATCHER}" at "$.body" but found "String"`);
+  assert.strictEqual(message, `Json doesn't match with "FLOAT" pattern at "$.body" but found "${actual}"`);
 });
 
 test.run();

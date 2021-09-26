@@ -4,7 +4,6 @@ const ISO8601_DATE_PATTERN = "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])
 const ISO8601_DATE_TIME_PATTERN = "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z)$";
 const ISO8601_DATE_TIME_MS_PATTERN = "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d(:?[0-5]\\d)?|Z)$";
 const RFC3339_TIMESTAMP_PATTERN = /^(\d+)-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01])\s([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(([Zz])|([\+|\-]([01]\d|2[0-3])))$/;
-const FLOAT_PATTERN = "^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$";
 
 function like(value) {
   return {
@@ -110,7 +109,10 @@ function timestamp(value) {
 }
 
 function float(value) {
-  return regex(value || 123.456, FLOAT_PATTERN);
+  return {
+    value: value || 123.456,
+    pactum_type: 'FLOAT'
+  };
 }
 
 module.exports = {
