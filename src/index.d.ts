@@ -60,3 +60,8 @@ export function date(value?: string): object;
  * ISO 8601 date-time matching
  */
 export function dateTime(value?: string): object;
+
+/**
+ * float matching
+ */
+ export function float(value?: number): object;
