@@ -52,6 +52,9 @@ function compareWithRule(actual, expected, rules, path, rule) {
     case 'float':
         compareWithFloat(actual, rule, path);
         break;
+    case 'any':
+        compareWithAny(actual, rule, path);
+        break;
   }
 }
 
@@ -117,6 +120,13 @@ function compareWithFloat(actual, rule, path) {
   const pattern = patterns.FLOAT;
   if (!pattern.test(actual)) {
     throw `Json doesn't match with "FLOAT" pattern at "${path}" but found "${actual}"`;
+  }
+}
+
+function compareWithAny(actual, rule, path) {
+  const pattern = patterns.ANY;
+  if (!pattern.test(actual)) {
+    throw `Json doesn't match with "ANY" pattern at "${path}" but found "${actual}"`;
   }
 }
 

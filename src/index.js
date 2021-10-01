@@ -115,6 +115,13 @@ function float(value) {
   };
 }
 
+function any(value) {
+  return {
+    value: value || "Pact123",
+    pactum_type: 'ANY'
+  };
+}
+
 module.exports = {
   like,
   eachLike,
@@ -130,5 +137,6 @@ module.exports = {
   dateTimeMs,
   timestamp,
   float,
+  any,
   utils
 };
