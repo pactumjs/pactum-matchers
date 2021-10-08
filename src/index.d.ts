@@ -2,7 +2,7 @@ export * as utils from './utils';
 
 interface EachLikeOptions {
   min?: number;
-  value?: any;
+  items?: any[];
 }
 
 /**

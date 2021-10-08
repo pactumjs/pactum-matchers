@@ -15,9 +15,10 @@ function like(value) {
 function eachLike(content, options) {
   let min = 1;
   let value = [content];
+  let items = [];
   if (typeof options === 'object') {
-    if (options.value) {
-      value = options.value;
+    if (options.items) {
+      items = options.items;
     }
     if (typeof options.min === 'number') {
       min = options.min;
@@ -25,6 +26,7 @@ function eachLike(content, options) {
   }
   return {
     value,
+    items,
     min,
     pactum_type: 'ARRAY_LIKE'
   };

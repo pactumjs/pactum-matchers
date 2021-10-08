@@ -5,7 +5,9 @@ function getValueFromMatcher(data) {
     case 'ONE_OF':
       return data.value[0];
     case 'ARRAY_LIKE':
-      if (Array.isArray(data.value)) {
+      if (data.items && data.items.length > 0) {
+        data.value = data.items;
+      } else if (Array.isArray(data.value)) {
         for (let i = 0; i < data.value.length; i++) {
           data.value[i] = getValue(data.value[i]);
         }
