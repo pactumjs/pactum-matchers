@@ -60,3 +60,33 @@ export function date(value?: string): object;
  * ISO 8601 date-time matching
  */
 export function dateTime(value?: string): object;
+
+/**
+ * Int matching
+ */
+ export function int(value?: number): object;
+
+/**
+ * Float matching
+ */
+ export function float(value?: number): object;
+
+/**
+ * Greater than given number matching
+ */
+ export function gt(value?: number): object;
+
+ /**
+ * Greater than or equal to given number matching
+ */
+  export function gte(value?: number): object;
+
+  /**
+ * Lesser than given number matching
+ */
+ export function lt(value?: number): object;
+
+ /**
+ * Lesser than or equal to given number matching
+ */
+  export function lte(value?: number): object;

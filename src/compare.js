@@ -49,6 +49,24 @@ function compareWithRule(actual, expected, rules, path, rule) {
     case 'email':
       compareWithEmail(actual, rule, path);
       break;
+    case 'int':
+      compareWithInt(actual, rule, path);
+      break;
+    case 'float':
+      compareWithFloat(actual, rule, path);
+      break;
+    case 'gt':
+      compareWithGt(actual, expected, rule, path);
+      break;
+    case 'gte':
+      compareWithGte(actual, expected, rule, path);
+      break;
+    case 'lt':
+      compareWithLt(actual, expected, rule, path);
+      break;
+    case 'lte':
+      compareWithLte(actual, expected, rule, path);
+      break;
   }
 }
 
@@ -107,6 +125,66 @@ function compareWithUUID(actual, rule, path) {
   const pattern = patterns.UUID;
   if (!pattern.test(actual)) {
     throw `Json doesn't match with "UUID" pattern at "${path}" but found "${actual}"`;
+  }
+}
+
+function compareWithInt(actual, rule, path) {
+  const type = getType(actual);
+  if (type !== 'number') {
+    throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
+  } else {
+    const pattern = patterns.INT;
+    if (!pattern.test(actual)) {
+      throw `Json doesn't have 'integer' number at '${path}' but found '${actual}'`;
+    }
+  }
+}
+
+function compareWithFloat(actual, rule, path) {
+  const type = getType(actual);
+  if (type !== 'number') {
+    throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
+  } else {
+    const pattern = patterns.FLOAT;
+    if (!pattern.test(actual)) {
+      throw `Json doesn't have 'float' number at '${path}' but found '${actual}'`;
+    }
+  }
+}
+
+function compareWithGt(actual, expected, rule, path) {
+  const type = getType(actual);
+  if (type !== 'number') {
+    throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
+  } else if (!(actual > expected)) {
+    throw `Json doesn't have 'greater' value at '${path}' but found '${actual}'`;
+  }
+}
+
+function compareWithGte(actual, expected, rule, path) {
+  const type = getType(actual);
+  if (type !== 'number') {
+    throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
+  } else if (!(actual >= expected)) {
+    throw `Json doesn't have 'greater or equal' value at '${path}' but found '${actual}'`;
+  }
+}
+
+function compareWithLt(actual, expected, rule, path) {
+  const type = getType(actual);
+  if (type !== 'number') {
+    throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
+  } else if (!(actual < expected)) {
+    throw `Json doesn't have 'lesser' value at '${path}' but found '${actual}'`;
+  }
+}
+
+function compareWithLte(actual, expected, rule, path) {
+  const type = getType(actual);
+  if (type !== 'number') {
+    throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
+  } else if (!(actual <= expected)) {
+    throw `Json doesn't have 'lesser or equal' value at '${path}' but found '${actual}'`;
   }
 }
 

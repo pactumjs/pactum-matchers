@@ -110,6 +110,47 @@ function timestamp(value) {
   });
 }
 
+function int(value) {
+  return {
+    value: value || 123,
+    pactum_type: 'INT'
+  };
+}
+
+function float(value) {
+  return {
+    value: value || 123.456,
+    pactum_type: 'FLOAT'
+  };
+}
+
+function gt(value) {
+  return {
+    value: value,
+    pactum_type: 'GT'
+  };
+}
+
+function gte(value) {
+  return {
+    value: value,
+    pactum_type: 'GTE'
+  };
+}
+
+function lt(value) {
+  return {
+    value: value,
+    pactum_type: 'LT'
+  };
+}
+
+function lte(value) {
+  return {
+    value: value,
+    pactum_type: 'LTE'
+  };
+}
 module.exports = {
   like,
   eachLike,
@@ -124,5 +165,11 @@ module.exports = {
   dateTime,
   dateTimeMs,
   timestamp,
+  int,
+  float,
+  gt,
+  gte,
+  lt,
+  lte,
   utils
 };
