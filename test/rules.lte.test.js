@@ -135,7 +135,7 @@ test('Lte - custom value - root number - comparison fails with empty string', ()
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't have type 'Number' at '$.body' but found 'string'`);
+  assert.strictEqual(message, `Json doesn't have type 'number' at '$.body' but found 'string'`);
 });
 
 test('Lte - custom value - root number - comparison fails with string', () => {
@@ -154,7 +154,7 @@ test('Lte - custom value - root number - comparison fails with string', () => {
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't have type 'Number' at '$.body' but found 'string'`);
+  assert.strictEqual(message, `Json doesn't have type 'number' at '$.body' but found 'string'`);
 });
 
 test('Lte - custom value - root number - comparison fails with string of numbers', () => {
@@ -173,7 +173,7 @@ test('Lte - custom value - root number - comparison fails with string of numbers
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't have type 'Number' at '$.body' but found 'string'`);
+  assert.strictEqual(message, `Json doesn't have type 'number' at '$.body' but found 'string'`);
 });
 
 test.run();

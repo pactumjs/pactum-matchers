@@ -98,7 +98,7 @@ test('Float - custom value - root number - comparison fails with a number string
   const { equal, message } = compare(actual, expected, rules, '$.body');
   const type = typeof(actual);
   assert.strictEqual(equal, false);
-  assert.strictEqual(message,`Json doesn't have type 'Number' at '$.body' but found '${type}'`);
+  assert.strictEqual(message,`Json doesn't have type 'number' at '$.body' but found '${type}'`);
 });
 
 
@@ -119,7 +119,7 @@ test('Float - custom value - root number - comparison fails with a string', () =
   const { equal, message } = compare(actual, expected, rules, '$.body');
   const type = typeof(actual);
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't have type 'Number' at '$.body' but found '${type}'`);
+  assert.strictEqual(message, `Json doesn't have type 'number' at '$.body' but found '${type}'`);
 });
 
 test.run();
