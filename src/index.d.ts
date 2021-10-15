@@ -62,6 +62,11 @@ export function date(value?: string): object;
 export function dateTime(value?: string): object;
 
 /**
+ * AnyTyppe matching
+ */
+ export function anyType(value?: number): object;
+
+/**
  * Int matching
  */
  export function int(value?: number): object;
