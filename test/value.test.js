@@ -53,7 +53,7 @@ test('object - eachLike multiple value', () => {
       pin: 524,
       state: regex('AD', /\w+/)
     }, {
-      value: [
+      items: [
         {
           city: 'Winter',
           pin: 524,
@@ -118,6 +118,54 @@ test('empty array', () => {
 test('array of items', () => {
   const value = getValue([1, true, 'str', null, [like(1)]]);
   assert.deepStrictEqual(value, [1, true, 'str', null, [1]]);
+});
+
+test('eachLike - multiple values', () => {
+  const input = eachLike('some string', { min: 2, items: ['API', 'UI'] });
+  const actual = getValue(input);
+  const expected = ['API', 'UI'];
+  assert.deepStrictEqual(actual, expected);
+});
+
+test('eachLike - multiple values with nested matchers', () => {
+  const input = eachLike({
+    t1: 'v1',
+    t2: like({
+      t3: 'v3'
+    })
+  }, {
+    min: 2,
+    items: [
+      {
+        t1: 'v1',
+        t2: {
+          t3: 'v3'
+        }
+      },
+      {
+        t1: 'v4',
+        t2: {
+          t3: 'v5'
+        }
+      }
+    ]
+  });
+  const actual = getValue(input);
+  const expected = [
+    {
+      t1: 'v1',
+      t2: {
+        t3: 'v3'
+      }
+    },
+    {
+      t1: 'v4',
+      t2: {
+        t3: 'v5'
+      }
+    }
+  ];
+  assert.deepStrictEqual(actual, expected);
 });
 
 test.run();

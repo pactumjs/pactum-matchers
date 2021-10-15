@@ -2,7 +2,7 @@ export * as utils from './utils';
 
 interface EachLikeOptions {
   min?: number;
-  value?: any;
+  items?: any[];
 }
 
 /**
@@ -77,6 +77,21 @@ export function dateTime(value?: string): object;
  export function float(value?: number): object;
 
 /**
- * any matching
+ * Greater than given number matching
  */
- export function any(value?: any): object;
+ export function gt(value?: number): object;
+
+ /**
+ * Greater than or equal to given number matching
+ */
+  export function gte(value?: number): object;
+
+  /**
+ * Lesser than given number matching
+ */
+ export function lt(value?: number): object;
+
+ /**
+ * Lesser than or equal to given number matching
+ */
+  export function lte(value?: number): object;

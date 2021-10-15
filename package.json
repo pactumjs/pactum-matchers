@@ -1,6 +1,6 @@
 {
   "name": "pactum-matchers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "collection of json matchers for contract testing",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

@@ -15,9 +15,10 @@ function like(value) {
 function eachLike(content, options) {
   let min = 1;
   let value = [content];
+  let items = [];
   if (typeof options === 'object') {
-    if (options.value) {
-      value = options.value;
+    if (options.items) {
+      items = options.items;
     }
     if (typeof options.min === 'number') {
       min = options.min;
@@ -25,6 +26,7 @@ function eachLike(content, options) {
   }
   return {
     value,
+    items,
     min,
     pactum_type: 'ARRAY_LIKE'
   };
@@ -129,13 +131,33 @@ function float(value) {
   };
 }
 
-function any(value) {
+function gt(value) {
   return {
-    value: value || "Pact123",
-    pactum_type: 'ANY'
+    value: value,
+    pactum_type: 'GT'
   };
 }
 
+function gte(value) {
+  return {
+    value: value,
+    pactum_type: 'GTE'
+  };
+}
+
+function lt(value) {
+  return {
+    value: value,
+    pactum_type: 'LT'
+  };
+}
+
+function lte(value) {
+  return {
+    value: value,
+    pactum_type: 'LTE'
+  };
+}
 module.exports = {
   like,
   eachLike,
@@ -153,6 +175,9 @@ module.exports = {
   anyType,
   int,
   float,
-  any,
+  gt,
+  gte,
+  lt,
+  lte,
   utils
 };

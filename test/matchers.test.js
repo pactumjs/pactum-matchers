@@ -17,15 +17,17 @@ test('eachLike', () => {
   assert.deepStrictEqual(value, {
     pactum_type: 'ARRAY_LIKE',
     value: ['some string'],
+    items: [],
     min: 1
   });
 });
 
 test('eachLike - multiple values', () => {
-  const value = eachLike('some string', { min: 2, value: ['API', 'UI'] });
+  const value = eachLike('some string', { min: 2, items: ['API', 'UI'] });
   assert.deepStrictEqual(value, {
     pactum_type: 'ARRAY_LIKE',
-    value: ['API', 'UI'],
+    value: ['some string'],
+    items: ['API', 'UI'],
     min: 2
   });
 });
