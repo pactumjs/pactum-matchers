@@ -64,7 +64,7 @@ export function dateTime(value?: string): object;
 /**
  * AnyType matching
  */
- export function anyType(value?: number): object;
+ export function anyType(value?: any): object;
 
 /**
  * Int matching
