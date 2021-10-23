@@ -49,8 +49,8 @@ function compareWithRule(actual, expected, rules, path, rule) {
     case 'email':
       compareWithEmail(actual, rule, path);
       break;
-    case 'anyType':
-      compareWithAnyType(actual, rule, path);
+    case 'any':
+      compareWithAny(actual, rule, path);
       break;
     case 'int':
       compareWithInt(actual, rule, path);
@@ -131,11 +131,11 @@ function compareWithUUID(actual, rule, path) {
   }
 }
 
-function compareWithAnyType(actual, rule, path) {
+function compareWithAny(actual, rule, path) {
   const types = [Number, String, Boolean, Object, Symbol, null, undefined]
   const type = getType(actual);
   if (type in types) {
-    throw `Json doesn't have type 'anyType' at '${path}' but found '${type}'`;
+    throw `Json doesn't have type 'any' at '${path}' but found '${type}'`;
   }
 }
 

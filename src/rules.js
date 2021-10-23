@@ -24,8 +24,8 @@ function setMatchingRules(rules, data, path) {
         rules[`${path}[*].*`] = { match: 'type' };
       }
       break;
-    case 'ANYTYPE':
-      rules[path] = { match: 'anyType' };
+    case 'ANY':
+      rules[path] = { match: 'any' };
       break;
     default:
       rules[path] = { match: data.pactum_type.toLowerCase() };

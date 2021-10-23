@@ -110,10 +110,10 @@ function timestamp(value) {
   });
 }
 
-function anyType(value) {
+function any(value) {
   return {
     value: value,
-    pactum_type: 'ANYTYPE'
+    pactum_type: 'ANY'
   };
 }
 
@@ -172,7 +172,7 @@ module.exports = {
   dateTime,
   dateTimeMs,
   timestamp,
-  anyType,
+  any,
   int,
   float,
   gt,
