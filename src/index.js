@@ -110,6 +110,13 @@ function timestamp(value) {
   });
 }
 
+function any(value) {
+  return {
+    value: value,
+    pactum_type: 'ANY'
+  };
+}
+
 function int(value) {
   return {
     value: value || 123,
@@ -165,6 +172,7 @@ module.exports = {
   dateTime,
   dateTimeMs,
   timestamp,
+  any,
   int,
   float,
   gt,
