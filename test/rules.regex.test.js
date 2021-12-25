@@ -52,4 +52,15 @@ test('regex - multiple prop in nested objects', () => {
   });
 });
 
+test('regex - root without value', () => {
+  const value = regex(/\w+/);
+  const rules = setMatchingRules({}, value, '$.body');
+  assert.deepStrictEqual(rules, {
+    '$.body': {
+      match: 'regex',
+      regex: '\\w+'
+    }
+  });
+});
+
 test.run();

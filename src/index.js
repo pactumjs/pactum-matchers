@@ -55,6 +55,10 @@ function string(value) {
 }
 
 function regex(value, matcher) {
+  if (typeof matcher === 'undefined') {
+    matcher = value;
+    value = 'regex';
+  }
   if (matcher instanceof RegExp) {
     matcher = matcher.source;
   }

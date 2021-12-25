@@ -168,4 +168,14 @@ test('eachLike - multiple values with nested matchers', () => {
   assert.deepStrictEqual(actual, expected);
 });
 
+test('regex', () => {
+  const value = getValue(regex('a', /\w+/));
+  assert.deepStrictEqual(value, 'a');
+});
+
+test('regex default', () => {
+  const value = getValue(regex(/\w+/));
+  assert.deepStrictEqual(value, 'regex');
+});
+
 test.run();
