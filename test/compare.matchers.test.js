@@ -1,6 +1,6 @@
 const suite = require('uvu').suite;
 const assert = require('uvu/assert');
-const { like, eachLike, regex, oneOf, expression, utils } = require('../src/index');
+const { like, eachLike, regex, oneOf, expression, gt, any, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
 const test = suite('Compare With Matchers');
@@ -135,6 +135,75 @@ test('like - prop object in array inside nested object', () => {
   assert.equal(message, `Json doesn't have type 'string' at '$.body.cmd[2]' but found 'number'`);
 });
 
+test('like - nested matchers - pass', () => {
+  const actual = {
+    name: 'jon',
+    age: 8,
+    address: {
+      line: 'flat',
+      zip: null
+    }
+  };
+  const value = like({
+    name: 'snow',
+    age: gt(5),
+    address: like({
+      line: 'flat',
+      zip: any('123')
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, '');
+});
+
+test('like - nested matchers - fail at root', () => {
+  const actual = {
+    name: 'jon',
+    age: 8,
+    address: {
+      line: 'flat',
+      zip: null
+    }
+  };
+  const value = like({
+    name: 'snow',
+    age: gt(10),
+    address: like({
+      line: 'flat',
+      zip: any('123')
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, `Json doesn't have 'greater' value than '10' at '$.body.age' but found '8'`);
+});
+
+test('like - nested matchers - fail at nested', () => {
+  const actual = {
+    name: 'jon',
+    age: 8,
+    address: {
+      line: 'flat',
+      zip: 3
+    }
+  };
+  const value = like({
+    name: 'snow',
+    age: gt(7),
+    address: like({
+      line: 'flat',
+      zip: gt(7)
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, `Json doesn't have 'greater' value than '7' at '$.body.address.zip' but found '3'`);
+});
+
 test('eachLike - root string', () => {
   const actual = ['null'];
   const value = eachLike('some string');
@@ -233,6 +302,118 @@ test('eachLike - extra prop in nested object', () => {
   const expected = getValue(value);
   const { message } = compare(actual, expected, rules, '$.body');
   assert.equal(message, `Json doesn't have property 'pin' at '$.body[1].address[1]'`);
+});
+
+test('eachLike - nested matchers - pass', () => {
+  const actual = [{
+    name: 'jon',
+    age: 8,
+    address: {
+      line: 'flat',
+      zip: null
+    }
+  }];
+  const value = eachLike({
+    name: 'snow',
+    age: gt(5),
+    address: like({
+      line: 'flat',
+      zip: any('123')
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, '');
+});
+
+test('eachLike - nested matchers - multiple values - pass', () => {
+  const actual = [
+    {
+      name: 'sand',
+      age: 7,
+      address: {
+        line: 'south',
+        zip: '1456'
+      }
+    },
+    {
+      name: 'jon',
+      age: 8,
+      address: {
+        line: 'flat',
+        zip: null
+      }
+    }
+  ];
+  const value = eachLike({
+    name: 'snow',
+    age: gt(5),
+    address: like({
+      line: 'flat',
+      zip: any('123')
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, '');
+});
+
+test('eachLike - nested matchers - fail at root', () => {
+  const actual = [{
+    name: 'jon',
+    age: 8,
+    address: {
+      line: 'flat',
+      zip: null
+    }
+  }];
+  const value = eachLike({
+    name: 'snow',
+    age: gt(10),
+    address: like({
+      line: 'flat',
+      zip: any('123')
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, `Json doesn't have 'greater' value than '10' at '$.body[0].age' but found '8'`);
+});
+
+test('eachLike - nested matchers - fail at nested', () => {
+  const actual = [
+    {
+      name: 'jon',
+      age: 8,
+      address: {
+        line: 'flat',
+        zip: 13
+      }
+    },
+    {
+      name: 'sand',
+      age: 8,
+      address: {
+        line: 'south',
+        zip: 3
+      }
+    }
+  ];
+  const value = eachLike({
+    name: 'snow',
+    age: gt(7),
+    address: like({
+      line: 'flat',
+      zip: gt(7)
+    })
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body');
+  assert.equal(message, `Json doesn't have 'greater' value than '7' at '$.body[1].address.zip' but found '3'`);
 });
 
 test('regex - root string', () => {

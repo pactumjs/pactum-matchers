@@ -40,7 +40,7 @@ test('Lt - custom value - root number - comparison fails with greater integer nu
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't have 'lesser' value at '$.body' but found '${actual}'`);
+  assert.strictEqual(message, `Json doesn't have 'lesser' value than '369' at '$.body' but found '${actual}'`);
 });
 
 test('Lt - custom value - root number - comparison passes with lesser float number', () => {
@@ -78,7 +78,7 @@ test('Lt - custom value - root number - comparison fails with greater float numb
   const expected = getValue(value);
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
-  assert.strictEqual(message, `Json doesn't have 'lesser' value at '$.body' but found '${actual}'`);
+  assert.strictEqual(message, `Json doesn't have 'lesser' value than '369.08' at '$.body' but found '${actual}'`);
 });
 
 test('Lt - custom value - root number - comparison fails with empty string', () => {

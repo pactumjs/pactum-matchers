@@ -16,10 +16,11 @@ function compare(actual, expected, rules, path) {
 
 function getCurrentPathRule(rules, path) {
   if (rules[path]) return rules[path];
+  const genericPath = path.replace(/\[\d+\]/g, '[*]');
+  if (rules[genericPath]) return rules[genericPath];
   let dotIndex = path.lastIndexOf('.');
   const allPropsPath = `${path.slice(0, dotIndex)}.*`;
   if (rules[allPropsPath]) return rules[allPropsPath];
-  const genericPath = path.replace(/\[\d+\]/g, '[*]');
   dotIndex = genericPath.lastIndexOf('.');
   const allPropsGenericPath = `${genericPath.slice(0, dotIndex)}.*`;
   if (rules[allPropsGenericPath]) return rules[allPropsGenericPath];
@@ -168,7 +169,7 @@ function compareWithGt(actual, expected, rule, path) {
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else if (!(actual > expected)) {
-    throw `Json doesn't have 'greater' value at '${path}' but found '${actual}'`;
+    throw `Json doesn't have 'greater' value than '${expected}' at '${path}' but found '${actual}'`;
   }
 }
 
@@ -177,7 +178,7 @@ function compareWithGte(actual, expected, rule, path) {
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else if (!(actual >= expected)) {
-    throw `Json doesn't have 'greater or equal' value at '${path}' but found '${actual}'`;
+    throw `Json doesn't have 'greater or equal' value than '${expected}' at '${path}' but found '${actual}'`;
   }
 }
 
@@ -186,7 +187,7 @@ function compareWithLt(actual, expected, rule, path) {
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else if (!(actual < expected)) {
-    throw `Json doesn't have 'lesser' value at '${path}' but found '${actual}'`;
+    throw `Json doesn't have 'lesser' value than '${expected}' at '${path}' but found '${actual}'`;
   }
 }
 
@@ -195,7 +196,7 @@ function compareWithLte(actual, expected, rule, path) {
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else if (!(actual <= expected)) {
-    throw `Json doesn't have 'lesser or equal' value at '${path}' but found '${actual}'`;
+    throw `Json doesn't have 'lesser or equal' value than '${expected}' at '${path}' but found '${actual}'`;
   }
 }
 
