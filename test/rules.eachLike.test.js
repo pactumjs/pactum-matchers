@@ -94,5 +94,36 @@ test('eachLike - only nested objects', () => {
   });
 });
 
+test('eachLike - root object & normal array & nested object', () => {
+  const value = eachLike({
+    name: 'snow',
+    age: 8,
+    address: [
+      {
+        city: 'NLR',
+        pin: 121001
+      },
+      {
+        city: 'NLR',
+        pin: 121001,
+        tags: eachLike('city')
+      },
+      {
+        city: 'NLR',
+        pin: 121001
+      }
+    ]
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  assert.deepStrictEqual(rules, {
+    '$.body': { match: 'type', min: 1 },
+    '$.body[*]': { match: 'type' },
+    '$.body[*].*': { match: 'type' },
+    '$.body[*].address[1].tags': { match: 'type', min: 1 },
+    '$.body[*].address[1].tags[*]': { match: 'type' },
+    '$.body[*].address[1].tags[*].*': { match: 'type' }
+  });
+});
+
 
 test.run();

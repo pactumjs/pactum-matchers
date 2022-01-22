@@ -2,19 +2,65 @@ const { isPrimitive, getType } = require('./helpers');
 const patterns = require('./patterns');
 
 function compare(actual, expected, rules, path) {
-  const rule = getCurrentPathRule(rules, path);
+  const regex_rules = getRegExRules(rules);
+  return _compare(actual, expected, rules, regex_rules, path);
+}
+
+function _compare(actual, expected, rules, regex_rules, path) {
+  const rule = getCurrentPathRule(rules, regex_rules, path);
   if (rule) {
-    compareWithRule(actual, expected, rules, path, rule);
+    compareWithRule(actual, expected, rules, regex_rules, path, rule);
   } else {
     typeCompare(actual, expected, path);
-    arrayCompare(actual, expected, rules, path);
-    objectCompare(actual, expected, rules, path);
+    arrayCompare(actual, expected, rules, regex_rules, path);
+    objectCompare(actual, expected, rules, regex_rules, path);
     valueCompare(actual, expected, path);
   }
   return '';
 }
 
-function getCurrentPathRule(rules, path) {
+function escapeRegex(string) {
+  return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
+function getRegExRules(rules) {
+  const regex_rules = {};
+  Object.keys(rules).forEach(rule => {
+    if (rule == '__proto__' || rule == 'constructor' || rule == 'prototype') {
+      return;
+    }
+    let regex_rule = escapeRegex(rule);
+    regex_rule = regex_rule.replace(/\\\[\\\*\\\]/g, '\\\[\\d+\\\]');
+    if (regex_rule.endsWith('.\\*')) {
+      regex_rules[regex_rule.slice(0, regex_rule.length - 2) + '[^.]+$'] = rules[rule];
+    } else {
+      regex_rules[regex_rule + '$'] = rules[rule];
+    }
+  });
+  return regex_rules;
+}
+
+function getCurrentPathRuleUsingRegEx(regex_rules, path) {
+  const rules = Object.keys(regex_rules);
+  let fall_back_rule = null;
+  for (let i = 0; i < rules.length; i++) {
+    const rule = rules[i];
+    if (rule == '__proto__' || rule == 'constructor' || rule == 'prototype') {
+      return;
+    }
+    const rx = new RegExp(rule);
+    if (rx.test(path)) {
+      if (rule.endsWith('.[^.]+$')) {
+        fall_back_rule = regex_rules[rule];
+      } else {
+        return regex_rules[rule];
+      }
+    }
+  }
+  return fall_back_rule;
+}
+
+function getCurrentPathRule(rules, regex_rules, path) {
   if (rules[path]) return rules[path];
   const genericPath = path.replace(/\[\d+\]/g, '[*]');
   if (rules[genericPath]) return rules[genericPath];
@@ -24,13 +70,14 @@ function getCurrentPathRule(rules, path) {
   dotIndex = genericPath.lastIndexOf('.');
   const allPropsGenericPath = `${genericPath.slice(0, dotIndex)}.*`;
   if (rules[allPropsGenericPath]) return rules[allPropsGenericPath];
-  return rules[genericPath];
+  if (rules[genericPath]) return rules[genericPath];
+  return getCurrentPathRuleUsingRegEx(regex_rules, path)
 }
 
-function compareWithRule(actual, expected, rules, path, rule) {
+function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
   switch (rule.match) {
     case 'type':
-      compareWithRuleType(actual, expected, rules, path);
+      compareWithRuleType(actual, expected, rules, regex_rules, path, rule);
       break;
     case 'regex':
       compareWithRuleRegex(actual, rule, path);
@@ -74,17 +121,23 @@ function compareWithRule(actual, expected, rules, path, rule) {
   }
 }
 
-function compareWithRuleType(actual, expected, rules, path) {
+function compareWithRuleType(actual, expected, rules, regex_rules, path, rule) {
   typeCompare(actual, expected, path);
   const type = getType(expected);
   if (type === 'array') {
-    const expectedItem = expected[0];
-    if (actual.length === 0) throw `Json has an empty 'array' at '${path}'`;
-    for (let i = 0; i < actual.length; i++) {
-      compare(actual[i], expectedItem, rules, `${path}[${i}]`);
+    if (typeof rule.min !== 'undefined') {
+      if (actual.length < rule.min) {
+        throw `Json doesn't have 'array' with min length of '${rule.min}' at '${path}' but found 'array' with length '${actual.length}'`;
+      }
+      for (let i = 0; i < actual.length; i++) {
+        _compare(actual[i], expected[0], rules, regex_rules, `${path}[${i}]`);
+      }
+    } else {
+      arrayCompare(actual, expected, rules, regex_rules, path);
     }
+    
   } else if (type === 'object') {
-    objectCompare(actual, expected, rules, path);
+    objectCompare(actual, expected, rules, regex_rules, path);
   }
 }
 
@@ -215,24 +268,24 @@ function typeCompare(actual, expected, path) {
   }
 }
 
-function arrayCompare(actual, expected, rules, path) {
+function arrayCompare(actual, expected, rules, regex_rules, path) {
   if (getType(expected) === 'array') {
     if (actual.length !== expected.length) {
       throw `Json doesn't have 'array' with length '${expected.length}' at '${path}' but found 'array' with length '${actual.length}'`;
     }
     for (let i = 0; i < expected.length; i++) {
-      compare(actual[i], expected[i], rules, `${path}[${i}]`);
+      _compare(actual[i], expected[i], rules, regex_rules, `${path}[${i}]`);
     }
   }
 }
 
-function objectCompare(actual, expected, rules, path) {
+function objectCompare(actual, expected, rules, regex_rules, path) {
   if (getType(expected) === 'object') {
     for (const prop in expected) {
       if (!Object.prototype.hasOwnProperty.call(actual, prop)) {
         throw `Json doesn't have property '${prop}' at '${path}'`;
       }
-      compare(actual[prop], expected[prop], rules, `${path}.${prop}`);
+      _compare(actual[prop], expected[prop], rules, regex_rules, `${path}.${prop}`);
     }
   }
 }
