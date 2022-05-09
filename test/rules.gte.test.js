@@ -3,7 +3,7 @@ const assert = require('assert');
 const { gte, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - gte');
 
 test('Gte - custom value - root number - comparison passes with greater integer number', () => {
   const actual = 146;

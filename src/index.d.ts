@@ -96,3 +96,8 @@ export function dateTime(value?: string): object;
  * Lesser than or equal to given number matching
  */
   export function lte(value?: number): object;
+
+/**
+ * not have property in object
+ */
+export function notHaveProperty(value: string): object;

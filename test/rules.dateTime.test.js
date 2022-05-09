@@ -3,7 +3,7 @@ const assert = require('assert');
 const {  dateTime, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - dateTime');
 
 test(' dateTime - default value - root string - comparison passes', () => {
   const actual = '2021-03-14T06:34:25+00:00';

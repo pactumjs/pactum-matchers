@@ -3,7 +3,7 @@ const assert = require('assert');
 const { uuid, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - uuid');
 
 test('uuid - default value - root string - comparison passes', () => {
   const actual = '83994085-2dde-4dc6-82a9-27fedf9e0c09';

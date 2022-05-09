@@ -3,7 +3,7 @@ const assert = require('assert');
 const { any, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - anyType');
 
 test('Any - custom value - root number - comparison passes with an interger number', () => {
   const actual = 456;

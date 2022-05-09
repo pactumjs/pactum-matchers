@@ -166,6 +166,14 @@ function lte(value) {
     pactum_type: 'LTE'
   };
 }
+
+function notHaveProperty(value) {
+  return {
+    value: value,
+    pactum_type: 'NHP'
+  };
+}
+
 module.exports = {
   like,
   eachLike,
@@ -187,5 +195,6 @@ module.exports = {
   gte,
   lt,
   lte,
+  notHaveProperty,
   utils
 };

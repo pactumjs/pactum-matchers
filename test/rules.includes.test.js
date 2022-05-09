@@ -3,7 +3,7 @@ const assert = require('assert');
 const { includes, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - Includes');
 
 test('includes - root string - comparison passes', () => {
   const actual = 'add some sugar';

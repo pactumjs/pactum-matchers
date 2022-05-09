@@ -3,7 +3,7 @@ const assert = require('assert');
 const { lte, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - lte');
 
 test('Lte - custom value - root number - comparison passes with lesser integer number', () => {
   const actual = 100;

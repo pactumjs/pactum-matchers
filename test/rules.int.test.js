@@ -3,7 +3,7 @@ const assert = require('assert');
 const { int, utils } = require('../src/index');
 const { setMatchingRules, getValue, compare } = utils;
 
-const test = suite('SetMatchingRules - Regex');
+const test = suite('SetMatchingRules - int');
 
 test('Int - default value - root number - comparison passes', () => {
   const actual = 457;
