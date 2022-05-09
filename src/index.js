@@ -40,6 +40,10 @@ function oneOf(value) {
 }
 
 function expression(value, expr) {
+  if (typeof expr === 'undefined') {
+    expr = value;
+    value = 'expression'
+  }
   return {
     value,
     expr,

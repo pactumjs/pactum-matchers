@@ -178,4 +178,14 @@ test('regex default', () => {
   assert.deepStrictEqual(value, 'regex');
 });
 
+test('expression', () => {
+  const value = getValue(expression('a', /\w+/));
+  assert.deepStrictEqual(value, 'a');
+});
+
+test('expression default', () => {
+  const value = getValue(expression(/\w+/));
+  assert.deepStrictEqual(value, 'expression');
+});
+
 test.run();

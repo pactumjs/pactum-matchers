@@ -40,4 +40,12 @@ test('expression - multiple prop in nested objects', () => {
   });
 });
 
+test('expression - default value', () => {
+  const value = expression('$V === "UI"');
+  const rules = setMatchingRules({}, value, '$.body');
+  assert.deepStrictEqual(rules, {
+    '$.body': { match: 'expr', expr: '$V === "UI"' }
+  });
+});
+
 test.run();

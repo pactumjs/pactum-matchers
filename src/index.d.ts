@@ -24,6 +24,7 @@ export function oneOf(value: any): object;
  * expression matching
  */
 export function expression(value: any, expr: string): object;
+export function expression(expr: string): object;
 
 /**
  * non empty string matching
