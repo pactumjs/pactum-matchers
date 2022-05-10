@@ -167,10 +167,10 @@ function lte(value) {
   };
 }
 
-function notHaveProperty(value) {
+function notIncludes(value) {
   return {
     value: value,
-    pactum_type: 'NHP'
+    pactum_type: 'NOT_INCLUDES'
   };
 }
 
@@ -195,6 +195,6 @@ module.exports = {
   gte,
   lt,
   lte,
-  notHaveProperty,
+  notIncludes,
   utils
 };

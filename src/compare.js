@@ -118,8 +118,8 @@ function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
     case 'lte':
       compareWithLte(actual, expected, rule, path);
       break;
-    case 'nhp':
-      compareNotHaveProperty(actual, expected, rule, path);
+    case 'not_includes':
+      compareNotIncludes(actual, expected, rule, path);
       break;
   }
 }
@@ -263,7 +263,7 @@ function compareWithEmail(actual, rule, path) {
   }
 }
 
-function compareNotHaveProperty(actual, expected, rule, path) {
+function compareNotIncludes(actual, expected, rule, path) {
   if (getType(actual) === 'object') {
     if (typeof actual[expected] !== 'undefined') {
       throw `Json has a property of "${expected}" at "${path}"`;

@@ -100,4 +100,4 @@ export function dateTime(value?: string): object;
 /**
  * not have property in object
  */
-export function notHaveProperty(value: string): object;
+export function notIncludes(value: string): object;
