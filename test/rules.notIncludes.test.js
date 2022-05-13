@@ -43,8 +43,8 @@ test('not includes - json does not have the property', () => {
   assert.strictEqual(message, ``);
 });
 
-test('not includes - array', () => {
-  const actual = [];
+test('not includes - null', () => {
+  const actual = null;
   const value = notIncludes('a');
   assert.deepStrictEqual(value, {
     pactum_type: 'NOT_INCLUDES',
@@ -60,6 +60,44 @@ test('not includes - array', () => {
   const { equal, message } = compare(actual, expected, rules, '$.body');
   assert.strictEqual(equal, false);
   assert.strictEqual(message, `Json doesn't have a "object" at "$.body"`);
+});
+
+test('not includes - array', () => {
+  const actual = ['a'];
+  const value = notIncludes('a');
+  assert.deepStrictEqual(value, {
+    pactum_type: 'NOT_INCLUDES',
+    value: 'a'
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  assert.deepStrictEqual(rules, {
+    '$.body': {
+     match: 'not_includes'
+    }
+  });
+  const expected = getValue(value);
+  const { equal, message } = compare(actual, expected, rules, '$.body');
+  assert.strictEqual(equal, false);
+  assert.strictEqual(message, `Json has an element "a" in an array at "$.body"`);
+});
+
+test('not includes - array fails', () => {
+  const actual = [''];
+  const value = notIncludes('a');
+  assert.deepStrictEqual(value, {
+    pactum_type: 'NOT_INCLUDES',
+    value: 'a'
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  assert.deepStrictEqual(rules, {
+    '$.body': {
+     match: 'not_includes'
+    }
+  });
+  const expected = getValue(value);
+  const { equal, message } = compare(actual, expected, rules, '$.body');
+  assert.strictEqual(equal, true);
+  assert.strictEqual(message, ``);
 });
 
 test('not includes - json does not the property in nested object', () => {

@@ -264,9 +264,14 @@ function compareWithEmail(actual, rule, path) {
 }
 
 function compareNotIncludes(actual, expected, rule, path) {
-  if (getType(actual) === 'object') {
+  const actual_type = getType(actual);
+  if (actual_type === 'object') {
     if (typeof actual[expected] !== 'undefined') {
       throw `Json has a property of "${expected}" at "${path}"`;
+    }
+  } else if (actual_type === 'array') {
+    if (actual.includes(expected)) {
+      throw `Json has an element "${expected}" in an array at "${path}"`;
     }
   } else {
     throw `Json doesn't have a "object" at "${path}"`;
