@@ -263,18 +263,24 @@ function compareWithEmail(actual, rule, path) {
   }
 }
 
-function compareNotIncludes(actual, expected, rule, path) {
-  const actual_type = getType(actual);
-  if (actual_type === 'object') {
-    if (typeof actual[expected] !== 'undefined') {
-      throw `Json has a property of "${expected}" at "${path}"`;
+function compareNotIncludes(actual, expected_values, rule, path) {
+  const expected_type = getType(expected_values);
+  if (expected_type !== 'array') {
+    expected_values = [expected_values];
+  }
+  for (const expected of expected_values) {
+    const actual_type = getType(actual);
+    if (actual_type === 'object') {
+      if (typeof actual[expected] !== 'undefined') {
+        throw `Json has a property of "${expected}" at "${path}"`;
+      }
+    } else if (actual_type === 'array') {
+      if (actual.includes(expected)) {
+        throw `Json has an element "${expected}" in an array at "${path}"`;
+      }
+    } else {
+      throw `Json doesn't have a "object" at "${path}"`;
     }
-  } else if (actual_type === 'array') {
-    if (actual.includes(expected)) {
-      throw `Json has an element "${expected}" in an array at "${path}"`;
-    }
-  } else {
-    throw `Json doesn't have a "object" at "${path}"`;
   }
 }
 

@@ -100,4 +100,5 @@ export function dateTime(value?: string): object;
 /**
  * not have property in object
  */
-export function notIncludes(value: string): object;
+export function notIncludes(value: string | number | boolean): object;
+export function notIncludes(values: string[] | number[] | boolean[]): object;
