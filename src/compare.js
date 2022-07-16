@@ -121,6 +121,9 @@ function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
     case 'not_includes':
       compareNotIncludes(actual, expected, rule, path);
       break;
+    case 'not_null':
+      compareWithNotNull(actual, path);
+      break;
   }
 }
 
@@ -281,6 +284,12 @@ function compareNotIncludes(actual, expected_values, rule, path) {
     } else {
       throw `Json doesn't have a "object" at "${path}"`;
     }
+  }
+}
+
+function compareWithNotNull(actual, path) {
+  if (actual === null) {
+    throw `Json has a "null" at "${path}"`;
   }
 }
 

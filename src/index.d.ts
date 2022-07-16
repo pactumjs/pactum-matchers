@@ -29,7 +29,7 @@ export function expression(expr: string): object;
 /**
  * non empty string matching
  */
- export function string(value?: string): object;
+export function string(value?: string): object;
 
 /**
  * regex matching
@@ -65,40 +65,45 @@ export function dateTime(value?: string): object;
 /**
  * Any type matching
  */
- export function any(value?: any): object;
+export function any(value?: any): object;
 
 /**
  * Int matching
  */
- export function int(value?: number): object;
+export function int(value?: number): object;
 
 /**
  * Float matching
  */
- export function float(value?: number): object;
+export function float(value?: number): object;
 
 /**
  * Greater than given number matching
  */
- export function gt(value?: number): object;
+export function gt(value?: number): object;
 
- /**
- * Greater than or equal to given number matching
- */
-  export function gte(value?: number): object;
+/**
+* Greater than or equal to given number matching
+*/
+export function gte(value?: number): object;
 
-  /**
- * Lesser than given number matching
- */
- export function lt(value?: number): object;
+/**
+* Lesser than given number matching
+*/
+export function lt(value?: number): object;
 
- /**
- * Lesser than or equal to given number matching
- */
-  export function lte(value?: number): object;
+/**
+* Lesser than or equal to given number matching
+*/
+export function lte(value?: number): object;
 
 /**
  * not have property in object
  */
 export function notIncludes(value: string | number | boolean): object;
 export function notIncludes(values: string[] | number[] | boolean[]): object;
+
+/**
+ * not null
+ */
+ export function notNull(value: string | number | boolean): object;

@@ -174,6 +174,13 @@ function notIncludes(value) {
   };
 }
 
+function notNull(value) {
+  return {
+    value: value,
+    pactum_type: 'NOT_NULL'
+  };
+}
+
 module.exports = {
   like,
   eachLike,
@@ -196,5 +203,6 @@ module.exports = {
   lt,
   lte,
   notIncludes,
+  notNull,
   utils
 };
