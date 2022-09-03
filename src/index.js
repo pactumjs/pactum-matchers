@@ -181,6 +181,13 @@ function notNull(value) {
   };
 }
 
+function notEquals(value) {
+  return {
+    value: value,
+    pactum_type: 'NOT_EQUALS'
+  };
+}
+
 module.exports = {
   like,
   eachLike,
@@ -204,5 +211,6 @@ module.exports = {
   lte,
   notIncludes,
   notNull,
+  notEquals,
   utils
 };

@@ -106,4 +106,9 @@ export function notIncludes(values: string[] | number[] | boolean[]): object;
 /**
  * not null
  */
- export function notNull(value: string | number | boolean): object;
+export function notNull(value: string | number | boolean): object;
+
+/**
+ * not equals
+ */
+ export function notEquals(value: string | number | boolean): object;
