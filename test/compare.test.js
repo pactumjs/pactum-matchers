@@ -64,14 +64,14 @@ test('objects with different properties', () => {
   const actual = { name: 'snow' };
   const expected = { name: 'jon' };
   const { message } = utils.compare(actual, expected, {}, '$.body');
-  assert.equal(message, `Json doesn't have value 'jon' at '$.body.name' but found 'snow'`);
+  assert.equal(message, `Json doesn't have a value 'jon' at '$.body.name' but found 'snow'`);
 });
 
 test('array of objects with different properties', () => {
   const actual = [{ name: 'snow' }];
   const expected = [{ name: 'jon' }];
   const { message } = utils.compare(actual, expected, {}, '$.body');
-  assert.equal(message, `Json doesn't have value 'jon' at '$.body[0].name' but found 'snow'`);
+  assert.equal(message, `Json doesn't have a value 'jon' at '$.body[0].name' but found 'snow'`);
 });
 
 test('array of objects with extra properties', () => {

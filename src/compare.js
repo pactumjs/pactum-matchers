@@ -124,6 +124,9 @@ function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
     case 'not_null':
       compareWithNotNull(actual, path);
       break;
+    case 'not_equals':
+      compareWithNotEquals(actual, expected, path);
+      break;
   }
 }
 
@@ -293,6 +296,12 @@ function compareWithNotNull(actual, path) {
   }
 }
 
+function compareWithNotEquals(actual, expected, path) {
+  if (actual === expected) {
+    throw `Json have a value '${expected}' at '${path}'`;
+  }
+}
+
 function typeCompare(actual, expected, path) {
   const actualType = getType(actual);
   const expectedType = getType(expected);
@@ -325,7 +334,7 @@ function objectCompare(actual, expected, rules, regex_rules, path) {
 
 function valueCompare(actual, expected, path) {
   if (isPrimitive(expected)) {
-    if (actual !== expected) throw `Json doesn't have value '${expected}' at '${path}' but found '${actual}'`;
+    if (actual !== expected) throw `Json doesn't have a value '${expected}' at '${path}' but found '${actual}'`;
   }
 }
 
