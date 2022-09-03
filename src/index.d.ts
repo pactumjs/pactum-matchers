@@ -34,8 +34,7 @@ export function string(value?: string): object;
 /**
  * regex matching
  */
-export function regex(value: any, matcher: RegExp): object;
-export function regex(value: any, matcher: string): object;
+export function regex(value: any, matcher?: RegExp | string): object;
 
 /**
  * partial regex matching
