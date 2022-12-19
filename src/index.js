@@ -188,6 +188,13 @@ function notEquals(value) {
   };
 }
 
+function iso(value) {
+  return {
+    value: value || "2022-02-21T21:28:00.000Z",
+    pactum_type: 'ISO'
+  };
+}
+
 module.exports = {
   like,
   eachLike,
@@ -212,5 +219,6 @@ module.exports = {
   notIncludes,
   notNull,
   notEquals,
+  iso,
   utils
 };
