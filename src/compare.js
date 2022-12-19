@@ -127,6 +127,9 @@ function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
     case 'not_equals':
       compareWithNotEquals(actual, expected, path);
       break;
+    case 'iso':
+      compareWithISO(actual, expected, path);
+      break;
   }
 }
 
@@ -335,6 +338,14 @@ function objectCompare(actual, expected, rules, regex_rules, path) {
 function valueCompare(actual, expected, path) {
   if (isPrimitive(expected)) {
     if (actual !== expected) throw `Json doesn't have a value '${expected}' at '${path}' but found '${actual}'`;
+  }
+}
+
+function compareWithISO(actual, rule, path) {
+  const pattern = patterns.ISO;
+  console.log(actual, pattern.test(actual))
+  if (!pattern.test(actual)) {
+    throw `Json doesn't match with "ISO" date format at "${path}" but found "${actual}"`;
   }
 }
 

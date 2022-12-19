@@ -111,3 +111,8 @@ export function notNull(value: string | number | boolean): object;
  * not equals
  */
  export function notEquals(value: string | number | boolean): object;
+
+ /**
+  * iso date format
+  */
+ export function iso(value?: string): object;
