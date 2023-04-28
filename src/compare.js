@@ -343,7 +343,6 @@ function valueCompare(actual, expected, path) {
 
 function compareWithISO(actual, rule, path) {
   const pattern = patterns.ISO;
-  console.log(actual, pattern.test(actual))
   if (!pattern.test(actual)) {
     throw `Json doesn't match with "ISO" date format at "${path}" but found "${actual}"`;
   }
