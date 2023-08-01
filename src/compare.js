@@ -141,7 +141,7 @@ function compareWithRuleType(actual, expected, rules, regex_rules, path, rule) {
       if (actual.length < rule.min) {
         throw `Json doesn't have 'array' with min length of '${rule.min}' at '${path}' but found 'array' with length '${actual.length}'`;
       }
-      if (typeof expected[0] !== 'undefined') {
+      if (rule.min > 0 || typeof expected[0] !== 'undefined') {
         for (let i = 0; i < actual.length; i++) {
           _compare(actual[i], expected[0], rules, regex_rules, `${path}[${i}]`);
         }
