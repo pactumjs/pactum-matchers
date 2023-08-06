@@ -40,6 +40,20 @@ test('root object', () => {
   assert.equal(message, '');
 });
 
+test('root object - empty array in strict mode', () => {
+  const actual = [];
+  const value = eachLike({
+    name: 'snow',
+    age: 18
+  }, {
+    min: 0
+  });
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body', true);
+  assert.equal(message, '');
+});
+
 test('root object - one object fails', () => {
   const actual = [
     {
