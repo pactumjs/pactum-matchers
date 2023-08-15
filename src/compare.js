@@ -1,5 +1,6 @@
-const { isPrimitive, getType } = require('./helpers');
+const { isPrimitive, getType, isPactumMatchersLikeObj } = require('./helpers');
 const patterns = require('./patterns');
+const { setRules } = require('./rules');
 
 function compare(actual, expected, rules, path) {
   const regex_rules = getRegExRules(rules);
@@ -83,7 +84,7 @@ function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
       compareWithRuleRegex(actual, rule, path);
       break;
     case 'oneOf':
-      compareWithRuleOneOf(actual, rule, path);
+      compareWithRuleOneOf(...arguments);
       break;
     case 'expr':
       compareWithRuleExpr(actual, rule, path);
@@ -162,15 +163,35 @@ function compareWithRuleRegex(actual, rule, path) {
   }
 }
 
-function compareWithRuleOneOf(actual, rule, path) {
+function compareWithRuleOneOf(actual, expected, rules, regex_rules, path, rule) {
   const values = rule.value;
   let found = false;
+  const errorMsg = [];
   for (let i = 0; i < values.length; i++) {
-    found = actual === values[i];
+    if (isPactumMatchersLikeObj(values[i])) {
+      const nxtRules = {};
+      setRules(nxtRules, values[i], path);
+      /**
+       * `_compare` func will throw an error if `actual` doesn't match `nxtRules`
+       * so if there is no error, `found` should be true
+       * otherwise we should continue the loop and handle the rest of `values`
+       */
+      try {
+        _compare(actual, expected, nxtRules, regex_rules, path);
+        found = true;
+      } catch (error) {
+        errorMsg.push(error);
+        continue;
+      }
+    } else {
+      found = actual === values[i];
+    }
     if (found) break;
   }
   if (!found) {
-    throw `Json doesn't have one of the expected values at "${path}" but found "${actual}"`;
+    errorMsg.push(`Json doesn't have one of the expected values at '${path}' but found '${actual}'`)
+    const str = errorMsg.join('\n')
+    throw str;
   }
 }
 
