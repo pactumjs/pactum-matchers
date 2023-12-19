@@ -210,6 +210,7 @@ function compareWithAny(actual, rule, path) {
 function compareWithInt(actual, rule, path) {
   console.warn(actual);
   console.warn(rule);
+  throw rule;
   console.warn(path);
   const type = getType(actual);
   if (type !== 'number') {
