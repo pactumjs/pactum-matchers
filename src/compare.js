@@ -7,7 +7,6 @@ function compare(actual, expected, rules, path) {
 }
 
 function _compare(actual, expected, rules, regex_rules, path) {
-  console.log(rules);
   const rule = getCurrentPathRule(rules, regex_rules, path);
   if (rule) {
     compareWithRule(actual, expected, rules, regex_rules, path, rule);
@@ -209,15 +208,10 @@ function compareWithAny(actual, rule, path) {
 }
 
 function compareWithInt(actual, rule, path) {
-  console.warn(actual);
-  console.warn(rule);
-  throw rule;
-  console.warn(path);
   const type = getType(actual);
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else {
-    console.warn(rule);
     if ('options' in rule) {
       const options = rule.options;
       if ('min' in rule) {
