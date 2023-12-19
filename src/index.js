@@ -125,10 +125,11 @@ function any(value) {
   };
 }
 
-function int(value) {
+function int(value, options) {
   return {
     value: value || 123,
-    pactum_type: 'INT'
+    pactum_type: 'INT',
+    options
   };
 }
 
