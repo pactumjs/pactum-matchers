@@ -7,6 +7,7 @@ function compare(actual, expected, rules, path) {
 }
 
 function _compare(actual, expected, rules, regex_rules, path) {
+  console.log(rules);
   const rule = getCurrentPathRule(rules, regex_rules, path);
   if (rule) {
     compareWithRule(actual, expected, rules, regex_rules, path, rule);
