@@ -125,17 +125,19 @@ function any(value) {
   };
 }
 
-function int(value) {
+function int(value, options) {
   return {
     value: value || 123,
-    pactum_type: 'INT'
+    pactum_type: 'INT',
+    options
   };
 }
 
-function float(value) {
+function float(value, options) {
   return {
     value: value || 123.456,
-    pactum_type: 'FLOAT'
+    pactum_type: 'FLOAT',
+    options,
   };
 }
 

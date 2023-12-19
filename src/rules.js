@@ -28,7 +28,7 @@ function setMatchingRules(rules, data, path) {
       rules[path] = { match: 'any' };
       break;
     default:
-      rules[path] = { match: data.pactum_type.toLowerCase() };
+      rules[path] = { match: data.pactum_type.toLowerCase(), options: data.options };
       break;
   }
 }
