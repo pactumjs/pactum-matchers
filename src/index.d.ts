@@ -74,7 +74,7 @@ export function int(value?: number, options?: { min?: number, max?: number }): o
 /**
  * Float matching
  */
-export function float(value?: number): object;
+export function float(value?: number, options?: { min?: number, max?: number }): object;
 
 /**
  * Greater than given number matching

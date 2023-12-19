@@ -219,7 +219,6 @@ function compareWithInt(actual, rule, path) {
         if (typeof min !== 'number') {
           throw `Value for min of '${path}' is not a number`;
         } else if (actual < min) {
-          console.log(`${actual} < ${min}`)
           throw `Value ${actual} at '${path}' is less than minimum ${min}`
         }
       }
@@ -228,7 +227,6 @@ function compareWithInt(actual, rule, path) {
         if (typeof max !== 'number') {
           throw `Value for max of '${path}' is not a number`
         } else if (actual > max) {
-          console.log(`${actual} > ${max}`)
           throw `Value ${actual} at '${path}' is more than maximum ${max}`
         }
       }
@@ -245,6 +243,25 @@ function compareWithFloat(actual, rule, path) {
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else {
+    if ('options' in rule && rule.options !== undefined) {
+      const options = rule.options;
+      if ('min' in options) {
+        const min = options.min;
+        if (typeof min !== 'number') {
+          throw `Value for min of '${path}' is not a number`;
+        } else if (actual < min) {
+          throw `Value ${actual} at '${path}' is less than minimum ${min}`
+        }
+      }
+      if ('max' in options) {
+        const max = options.max;
+        if (typeof max !== 'number') {
+          throw `Value for max of '${path}' is not a number`
+        } else if (actual > max) {
+          throw `Value ${actual} at '${path}' is more than maximum ${max}`
+        }
+      }
+    }
     const pattern = patterns.FLOAT;
     if (!pattern.test(actual)) {
       throw `Json doesn't have 'float' number at '${path}' but found '${actual}'`;
