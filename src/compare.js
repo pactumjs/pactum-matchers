@@ -219,12 +219,14 @@ function compareWithInt(actual, rule, path) {
         if (typeof min !== 'number') {
           throw `Value for min of '${path}' is not a number`;
         } else if (actual < min) {
+          console.log(`${actual} < ${min}`)
           throw `Value ${actual} at '${path}' is less than minimum ${min}`
         }
         const max = options.max;
         if (typeof max !== 'number') {
           throw `Value for max of '${path}' is not a number`
         } else if (actual > max) {
+          console.log(`${actual} > ${max}`)
           throw `Value ${actual} at '${path}' is more than maximum ${max}`
         }
       }

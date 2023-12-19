@@ -1,7 +1,6 @@
 const { isPureObject, isObject } = require('./helpers');
 
 function setMatchingRules(rules, data, path) {
-  if (data.options) console.log(data);
   switch (data.pactum_type) {
     case 'LIKE':
       rules[path] = { match: 'type' };
