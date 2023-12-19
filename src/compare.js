@@ -209,7 +209,7 @@ function compareWithAny(actual, rule, path) {
 
 function compareWithInt(actual, rule, path) {
   const type = getType(actual);
-  console.log(rule);
+  if (rule.options) console.log(rule);
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else {
