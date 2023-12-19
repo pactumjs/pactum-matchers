@@ -212,7 +212,7 @@ function compareWithInt(actual, rule, path) {
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else {
-    if ('options' in rule) {
+    if ('options' in rule && rule.options !== undefined) {
       const options = rule.options;
       if ('min' in options) {
         const min = options.min;
