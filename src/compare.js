@@ -208,14 +208,14 @@ function compareWithAny(actual, rule, path) {
 }
 
 function compareWithInt(actual, rule, path) {
-  console.log(actual);
-  console.log(rule);
-  console.log(path);
+  console.warn(actual);
+  console.warn(rule);
+  console.warn(path);
   const type = getType(actual);
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else {
-    console.log(rule);
+    console.warn(rule);
     if ('options' in rule) {
       const options = rule.options;
       if ('min' in rule) {
