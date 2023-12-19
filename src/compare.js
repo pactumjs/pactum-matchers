@@ -209,20 +209,22 @@ function compareWithAny(actual, rule, path) {
 
 function compareWithInt(actual, rule, path) {
   const type = getType(actual);
-  if (rule.options) console.log(rule);
   if (type !== 'number') {
     throw `Json doesn't have type 'number' at '${path}' but found '${type}'`;
   } else {
     if ('options' in rule) {
       const options = rule.options;
+      console.log(actual);
       if ('min' in rule) {
         const min = options.min;
+        console.log(`Minimum: ${min}`);
         if (typeof min !== 'number') {
           throw `Value for min of '${path}' is not a number`;
         } else if (actual < min) {
           throw `Value ${actual} at '${path}' is less than minimum ${min}`
         }
         const max = options.max;
+        console.log(`Minimum: ${max}`);
         if (typeof max !== 'number') {
           throw `Value for max of '${path}' is not a number`
         } else if (actual > max) {
