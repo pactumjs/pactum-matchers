@@ -1,15 +1,15 @@
 const { isPrimitive, getType } = require('./helpers');
 const patterns = require('./patterns');
 
-function compare(actual, expected, rules, path) {
+function compare(actual, expected, rules, path, inverse) {
   const regex_rules = getRegExRules(rules);
-  return _compare(actual, expected, rules, regex_rules, path);
+  return _compare(actual, expected, rules, regex_rules, path, inverse);
 }
 
-function _compare(actual, expected, rules, regex_rules, path) {
+function _compare(actual, expected, rules, regex_rules, path, inverse) {
   const rule = getCurrentPathRule(rules, regex_rules, path);
   if (rule) {
-    compareWithRule(actual, expected, rules, regex_rules, path, rule);
+    compareWithRule(actual, expected, rules, regex_rules, path, rule, inverse);
   } else {
     typeCompare(actual, expected, path);
     arrayCompare(actual, expected, rules, regex_rules, path);
@@ -74,13 +74,13 @@ function getCurrentPathRule(rules, regex_rules, path) {
   return getCurrentPathRuleUsingRegEx(regex_rules, path)
 }
 
-function compareWithRule(actual, expected, rules, regex_rules, path, rule) {
+function compareWithRule(actual, expected, rules, regex_rules, path, rule, inverse) {
   switch (rule.match) {
     case 'type':
       compareWithRuleType(actual, expected, rules, regex_rules, path, rule);
       break;
     case 'regex':
-      compareWithRuleRegex(actual, rule, path);
+      compareWithRuleRegex(actual, rule, path, inverse);
       break;
     case 'oneOf':
       compareWithRuleOneOf(actual, rule, path);
@@ -155,7 +155,10 @@ function compareWithRuleType(actual, expected, rules, regex_rules, path, rule) {
   }
 }
 
-function compareWithRuleRegex(actual, rule, path) {
+function compareWithRuleRegex(actual, rule, path, inverse) {
+  if (inverse) {
+    return;
+  }
   const regex = new RegExp(rule.regex);
   if (!regex.test(actual)) {
     throw `Json doesn't match with "${rule.regex}" at "${path}" but found "${actual}"`;
