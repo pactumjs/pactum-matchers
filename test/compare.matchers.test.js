@@ -237,6 +237,15 @@ test('regex - prop object', () => {
   assert.equal(message, '');
 });
 
+test('regex without default value - root string - strict', () => {
+  const actual = 'chrome';
+  const value = regex(/(chrome|firefox|msedge)/);
+  const rules = setMatchingRules({}, value, '$.body');
+  const expected = getValue(value);
+  const { message } = compare(actual, expected, rules, '$.body', true);
+  assert.equal(message, '');
+});
+
 test('oneOf - root string', () => {
   const actual = 'API';
   const value = oneOf(['UI', 'API']);
