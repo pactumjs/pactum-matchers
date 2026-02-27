@@ -94,6 +94,9 @@ function compareWithRule(actual, expected, rules, regex_rules, path, rule, inver
     case 'uuid':
       compareWithUUID(actual, rule, path);
       break;
+    case 'uuid_v7':
+      compareWithUUIDV7(actual, rule, path);
+      break;
     case 'email':
       compareWithEmail(actual, rule, path);
       break;
@@ -199,6 +202,13 @@ function compareWithUUID(actual, rule, path) {
   const pattern = patterns.UUID;
   if (!pattern.test(actual)) {
     throw `Json doesn't match with "UUID" pattern at "${path}" but found "${actual}"`;
+  }
+}
+
+function compareWithUUIDV7(actual, rule, path) {
+  const pattern = patterns.UUID_V7;
+  if (!pattern.test(actual)) {
+    throw `Json doesn't match with "UUID_V7" pattern at "${path}" but found "${actual}"`;
   }
 }
 
