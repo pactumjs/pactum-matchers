@@ -52,6 +52,11 @@ export function email(value?: string): object;
 export function uuid(value?: string): object;
 
 /**
+ * uuid v7 matching
+ */
+export function uuidV7(value?: string): object;
+
+/**
  * ISO 8601 date matching
  */
 export function date(value?: string): object;

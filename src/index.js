@@ -96,6 +96,13 @@ function uuid(value) {
   };
 }
 
+function uuidV7(value) {
+  return {
+    value: value || '01952bc0-71b6-7123-a3f4-716b8b4f0123',
+    pactum_type: 'UUID_V7'
+  };
+}
+
 function date(value) {
   return regex(value || '2020-12-12', ISO8601_DATE_PATTERN);
 }
@@ -205,6 +212,7 @@ module.exports = {
   includes,
   email,
   uuid,
+  uuidV7,
   date,
   dateTime,
   dateTimeMs,
