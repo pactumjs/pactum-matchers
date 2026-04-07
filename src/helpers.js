@@ -10,6 +10,16 @@ function isPrimitive(value) {
   return typeof value !== 'object';
 }
 
+function isPactumMatchersLikeObj(data) {
+  if (data === null) {
+    return false;
+  }
+  return (
+    Object.prototype.hasOwnProperty.call(data, 'pactum_type')
+    && Object.prototype.hasOwnProperty.call(data, 'value')
+  );
+}
+
 function getType(value) {
   const type = typeof value;
   if (type === 'object') {
@@ -23,5 +33,6 @@ module.exports = {
   isPureObject,
   isObject,
   getType,
-  isPrimitive
+  isPrimitive,
+  isPactumMatchersLikeObj
 };
